@@ -2,5 +2,25 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "maison-retouche-server",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-05-05"
+	"compatibility_date": "2025-05-05",
+	"env": {
+		"prod": {
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "maison-retouche-prod",
+					"database_id": "42afba23-213f-4e94-82cd-daffa5260465"
+				}
+			]
+		},
+		"dev": {
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "maison-retouche-dev",
+					"database_id": "80089d5a-6135-4849-8d8c-76c11257729f"
+				}
+			]
+		}
+	}
 }
