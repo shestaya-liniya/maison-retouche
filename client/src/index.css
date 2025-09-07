@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: var(--theme-bg-color);
+  --color-background-secondary: var(--theme-secondary-bg-color);
+  --color-background-header: var(--theme-header-bg-color);
+  --color-foreground: var(--theme-section-bg-color);
+  --color-border: var(--theme-section-separator-color, #3d3d3d);
+  --color-text-default: var(--theme-text-color);
+  --color-accent: var(--theme-accent-text-color);
+  --color-link: var(--theme-link-color);
+  --color-button: var(--theme-button-color);
+  --color-hint: var(--theme-hint-color);
+  --color-subtitle: var(--theme-subtitle-text-color);
+  --color-section-separator: var(--theme-section-separator-color);
+  --color-section-header: var(--theme-section-header-text-color);
+  --color-destructive: var(--theme-destructive-text-color);
+}
+
+html,
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch !important;
+  overflow: hidden;
+  height: 100dvh;
+  user-select: none;
+}
+
+#app {
+  height: 100dvh;
+  background-color: var(--color-background);
+  color: var(--color-text-default);
+}

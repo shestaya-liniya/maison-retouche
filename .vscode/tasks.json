@@ -1,0 +1,37 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "TS Watch Client",
+			"type": "shell",
+			"command": "tsc --build --noEmit --watch",
+			"isBackground": true,
+			"problemMatcher": {
+				"base": "$tsc-watch",
+				"fileLocation": ["relative", "${workspaceFolder}/client"]
+			},
+			"options": {
+				"cwd": "./client"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		},
+		{
+			"label": "TS Watch Server",
+			"type": "shell",
+			"command": "tsc --noEmit --watch",
+			"isBackground": true,
+			"problemMatcher": {
+				"base": "$tsc-watch",
+				"fileLocation": ["relative", "${workspaceFolder}/server"]
+			},
+			"options": {
+				"cwd": "./server"
+			},
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		}
+	]
+}
