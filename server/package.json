@@ -4,17 +4,23 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "wrangler dev --env dev"
+		"dev": "concurrently -k \"bun run dev-scripts\" \"bun run dev-wrangler\"",
+		"dev-wrangler": "wrangler dev --env dev",
+		"dev-scripts": "bun tsx scripts/dev.ts",
+		"build:prisma": "prisma generate --schema=src/db/prisma/schema.prisma"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250823.0",
 		"@eslint/js": "^9.34.0",
 		"@types/bun": "latest",
 		"@types/node": "^24.3.0",
+		"concurrently": "^9.2.1",
 		"eslint": "^9.34.0",
 		"eslint-plugin-simple-import-sort": "^12.1.1",
 		"globals": "^16.3.0",
 		"jiti": "^2.5.1",
+		"prisma": "^6.15.0",
+		"tsx": "^4.20.5",
 		"typescript-eslint": "^8.40.0",
 		"wrangler": "^4.32.0"
 	},
@@ -22,11 +28,11 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
+		"@prisma/adapter-d1": "^6.15.0",
+		"@prisma/client": "^6.15.0",
 		"@trpc/client": "^11.5.0",
 		"@trpc/server": "^11.5.0",
-		"buffer": "^6.0.3",
-		"microsoft-cognitiveservices-speech-sdk": "^1.45.0",
-		"phonemize": "^1.1.0",
+		"chokidar": "^4.0.3",
 		"zod": "^4.1.1"
 	}
 }
