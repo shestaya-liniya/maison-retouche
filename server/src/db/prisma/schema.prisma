@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   output          = "./generated/prisma"
@@ -10,4 +7,21 @@ generator client {
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Vendor {
+  id         Int        @id @default(autoincrement())
+  telegramId Int        @unique
+  firstName  String?
+  paychecks  Paycheck[]
+}
+
+model Paycheck {
+  id          Int      @id @default(autoincrement())
+  price       Int
+  payDate     DateTime
+  serviceName String
+  phoneNumber String   @unique
+  vendor      Vendor   @relation(fields: [vendorId], references: [id])
+  vendorId    Int
 }

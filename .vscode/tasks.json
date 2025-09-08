@@ -20,7 +20,7 @@
 		{
 			"label": "TS Watch Server",
 			"type": "shell",
-			"command": "tsc --noEmit --watch",
+			"command": "tsc --build --noEmit --watch",
 			"isBackground": true,
 			"problemMatcher": {
 				"base": "$tsc-watch",

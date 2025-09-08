@@ -7,9 +7,19 @@
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "types": ["vite/client"],
+    "types": [
+      "vite/client",
+      // Need to resolve type errors while importing things from server
+      "@cloudflare/workers-types",
+      "node"
+      // ---
+    ],
     "noEmit": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@server/*": ["../server/src/*"]
+    }
   }
 }

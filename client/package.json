@@ -11,6 +11,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250906.0",
     "@eslint/js": "^9.31.0",
     "@tailwindcss/vite": "^4.1.13",
     "eslint": "^9.31.0",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "@telegram-apps/sdk-solid": "^3.0.30",
+    "@trpc/client": "^11.5.1",
     "@types/node": "^24.3.1",
     "solid-js": "^1.9.5"
   }
