@@ -1,5 +1,5 @@
 import { initData, useSignal } from '@telegram-apps/sdk-solid'
-import { createSignal, onMount } from 'solid-js/types/server/reactive.js'
+import { createSignal, onMount } from 'solid-js'
 
 import { trpc } from '@/api/trpc'
 
