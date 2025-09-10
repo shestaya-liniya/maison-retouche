@@ -1,4 +1,5 @@
 import type { Env } from '../trpc/context'
+import { MIDDLEWARE_HEADERS } from '../trpc/middlewares/headers'
 
 function isOriginAllowed(
 	origin: string | null,
@@ -48,7 +49,7 @@ export function handleCORSPreflight(request: Request, env: Env): Response {
 		status: 200,
 		headers: {
 			'Access-Control-Allow-Origin': origin!,
-			'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+			'Access-Control-Allow-Headers': `Content-Type, Authorization, ${MIDDLEWARE_HEADERS.TMA_SESSION}`,
 			'Access-Control-Allow-Credentials': 'true',
 			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
 			'Access-Control-Max-Age': '86400',
