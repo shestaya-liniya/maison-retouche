@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "VITE_API_BASE_URL=https://maison-retouche-server.andrei-silin6.workers.dev/api vite build",
+    "build": "VITE_API_URL=https://maison-retouche-server.andrei-silin6.workers.dev/api vite build",
     "serve": "vite preview"
   },
   "license": "MIT",
