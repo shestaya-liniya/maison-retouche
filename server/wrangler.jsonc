@@ -30,7 +30,8 @@
 					"binding": "DB",
 					"database_name": "maison-retouche-dev",
 					"database_id": "80089d5a-6135-4849-8d8c-76c11257729f",
-					"migrations_dir": "src/db/migrations"
+					"migrations_dir": "src/db/migrations",
+					"experimental_remote": true
 				}
 			]
 		}

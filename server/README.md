@@ -28,4 +28,4 @@ bun run dev
    `bun wrangler d1 migrations apply maison-retouche-dev --remote --env=dev`
 
 5. Apply in prod  
-   `bun wrangler d1 migrations apply maison-retouche-prod --remote --env=production`
+   `bun wrangler d1 migrations apply maison-retouche-prod --remote --env=prod`

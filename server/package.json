@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "concurrently -k \"bun run dev-scripts\" \"bun run dev-wrangler\"",
-		"dev-wrangler": "wrangler dev --env dev",
+		"dev-wrangler": "wrangler dev --env=dev --x-remote-bindings",
 		"dev-scripts": "bun tsx scripts/dev.ts",
 		"build": "bun run build:prisma && wrangler build --env prod",
 		"build:prisma": "prisma generate --schema=src/db/prisma/schema.prisma"
