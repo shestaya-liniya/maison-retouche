@@ -17,7 +17,10 @@ const NavigationDrawerTab = (props: OwnProps) => {
     }
   }
   const iconClassName = createMemo(() =>
-    twMerge('h-6 w-6', props.isSelected ? 'text-accent' : 'text-link/30')
+    twMerge(
+      'h-6 w-6 transition-color duration-150 ease-in-out',
+      props.isSelected ? 'text-accent' : 'text-link/30'
+    )
   )
 
   return (
@@ -27,9 +30,9 @@ const NavigationDrawerTab = (props: OwnProps) => {
     >
       <props.Icon class={iconClassName()} />
       <div
-        class="px-2 py-0.5 text-xs font-medium"
+        class="px-2 py-0.5 text-xs font-medium transition-color duration-150 ease-in-out"
         classList={{
-          'bg-accent/10 text-accent rounded-full': props.isSelected,
+          'text-accent rounded-full': props.isSelected,
           'text-link/50': !props.isSelected
         }}
       >
