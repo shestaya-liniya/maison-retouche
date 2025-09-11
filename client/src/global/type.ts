@@ -6,9 +6,5 @@ export type GlobalState = {
     isLoading: boolean
     all: ApiPaycheck[]
   }
-  unfinishedPaychecks: {
-    isLoaded: boolean
-    isLoading: boolean
-    all: ApiPaycheck[]
-  }
+  unfinishedPaychecks: ApiPaycheck[]
 }

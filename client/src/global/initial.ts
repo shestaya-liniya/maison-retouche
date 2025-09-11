@@ -6,9 +6,5 @@ export const INITIAL_GLOBAL_STATE: GlobalState = {
     isLoading: false,
     all: []
   },
-  unfinishedPaychecks: {
-    isLoaded: false,
-    isLoading: false,
-    all: []
-  }
+  unfinishedPaychecks: []
 }
