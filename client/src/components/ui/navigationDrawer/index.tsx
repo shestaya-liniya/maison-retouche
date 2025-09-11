@@ -1,4 +1,5 @@
-import { Component, createSignal, Match, Switch } from 'solid-js'
+import { Component, createSignal } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 
 import NavigationDrawerTabBar from '@/components/ui/navigationDrawer/TabBar'
 import { Icon } from '@/lib/common/types/misc'
@@ -28,6 +29,9 @@ const NavigationDrawer = (props: OwnProps) => {
   >(undefined)
 
   const tabOrder: string[] = props.tabs.map(tab => tab.name)
+  const tabComponents = Object.fromEntries(
+    props.tabs.map(tab => [tab.name, tab.Component])
+  )
 
   const handleTabChange = (tabName: string) => {
     const currentIndex = tabOrder.indexOf(props.currentTab)
@@ -58,29 +62,12 @@ const NavigationDrawer = (props: OwnProps) => {
   return (
     <div class="flex flex-col h-full">
       <div class="flex-1 relative overflow-hidden">
-        {/* Animate enter of current tab */}
-        <Switch>
-          {props.tabs.map(tab => (
-            <Match when={props.currentTab === tab.name}>
-              <div class={getCurrentTabClasses()}>
-                <tab.Component />
-              </div>
-            </Match>
-          ))}
-        </Switch>
-
-        {/* Animate exit of prev tab */}
-        {previousTab() !== props.currentTab && (
-          <Switch>
-            {props.tabs.map(tab => (
-              <Match when={previousTab() === tab.name}>
-                <div class={getPreviousTabClasses()}>
-                  <tab.Component />
-                </div>
-              </Match>
-            ))}
-          </Switch>
-        )}
+        <div class={getCurrentTabClasses()}>
+          <Dynamic component={tabComponents[props.currentTab]} />
+        </div>
+        <div class={getPreviousTabClasses()}>
+          <Dynamic component={tabComponents[previousTab()]} />
+        </div>
       </div>
       <NavigationDrawerTabBar
         currentTab={props.currentTab}
