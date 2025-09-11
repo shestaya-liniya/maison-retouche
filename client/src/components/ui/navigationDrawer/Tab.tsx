@@ -17,15 +17,24 @@ const NavigationDrawerTab = (props: OwnProps) => {
     }
   }
   const iconClassName = createMemo(() =>
-    twMerge('h-8 w-8', props.isSelected ? 'text-accent' : 'text-link/30')
+    twMerge('h-6 w-6', props.isSelected ? 'text-accent' : 'text-link/30')
   )
 
   return (
     <Tappable
       onPointerDown={handleSelect}
-      class="px-4 py-2 flex flex-col items-center gap-1 rounded-full"
+      class="w-20 py-2 flex flex-col items-center gap-1 rounded-xl"
     >
       <props.Icon class={iconClassName()} />
+      <div
+        class="px-2 py-0.5 text-xs font-medium"
+        classList={{
+          'bg-accent/10 text-accent rounded-full': props.isSelected,
+          'text-link/50': !props.isSelected
+        }}
+      >
+        {props.title}
+      </div>
     </Tappable>
   )
 }

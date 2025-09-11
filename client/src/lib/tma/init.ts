@@ -8,6 +8,7 @@ import {
   mountMiniAppSync,
   mountThemeParamsSync,
   mountViewport,
+  postEvent,
   restoreInitData,
   setDebug,
   setMainButtonParams,
@@ -15,7 +16,8 @@ import {
   setMiniAppBottomBarColor,
   setMiniAppHeaderColor,
   themeParamsBackgroundColor,
-  themeParamsState,
+  themeParamsSectionBackgroundColor,
+  themeParamsState
 } from '@telegram-apps/sdk-solid'
 
 import { formatThemeParamsCssVar, formatViewportCssVar } from './utils'
@@ -44,7 +46,7 @@ export async function init({
       onEvent(event, next) {
         if (mockForMacOS && event[0] === 'web_app_request_theme') {
           return emitEvent('theme_changed', {
-            theme_params: themeParamsState(),
+            theme_params: themeParamsState()
           })
         }
         if (event[0] === 'web_app_request_content_safe_area') {
@@ -54,7 +56,7 @@ export async function init({
           return emitEvent('safe_area_changed', noInsets)
         }
         next()
-      },
+      }
     })
   }
 
@@ -75,10 +77,14 @@ export async function init({
   }
   mountMiniAppSync.ifAvailable()
 
-  const desiredColor = themeParamsBackgroundColor()
-  if (desiredColor) {
-    setMiniAppHeaderColor(desiredColor)
-    setMiniAppBackgroundColor(desiredColor)
-    setMiniAppBottomBarColor(desiredColor)
+  postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false })
+
+  const sectionBackgroundColor = themeParamsSectionBackgroundColor()
+  const backgroundColor = themeParamsBackgroundColor()
+
+  if (sectionBackgroundColor && backgroundColor) {
+    setMiniAppHeaderColor(backgroundColor)
+    setMiniAppBackgroundColor(sectionBackgroundColor)
+    setMiniAppBottomBarColor(sectionBackgroundColor)
   }
 }

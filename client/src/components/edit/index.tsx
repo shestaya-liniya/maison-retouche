@@ -1,5 +1,5 @@
 const Edit = () => {
-  return <div>Edit</div>
+  return <div class="bg-foreground">Edit</div>
 }
 
 export default Edit

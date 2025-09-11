@@ -11,8 +11,8 @@ type OwnProps = {
 
 const NavigationDrawerTabBar = (props: OwnProps) => {
   return (
-    <div class="py-1 bg-background">
-      <div class="flex items-center justify-center h-full">
+    <div class="py-1 bg-foreground">
+      <div class="flex items-center gap-4 justify-center h-full">
         <For each={props.tabs}>
           {tab => (
             <NavigationDrawerTab

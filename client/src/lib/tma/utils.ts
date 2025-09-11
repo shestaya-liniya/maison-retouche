@@ -1,7 +1,8 @@
-import type {
-  MiniAppGetCssVarNameFn,
-  ThemeParamsGetCssVarNameFn,
-  ViewportGetCSSVarNameFn,
+import {
+  type MiniAppGetCssVarNameFn,
+  retrieveLaunchParams,
+  type ThemeParamsGetCssVarNameFn,
+  type ViewportGetCSSVarNameFn
 } from '@telegram-apps/sdk-solid'
 
 export function camelToKebab(value: string): string {
@@ -26,3 +27,7 @@ export const formatViewportCssVar: ViewportGetCSSVarNameFn = key => {
 export const formatMiniAppCssVar: MiniAppGetCssVarNameFn = key => {
   return `--mini-app-${camelToKebab(key)}`
 }
+
+const lp = retrieveLaunchParams()
+export const userDevice = lp.tgWebAppPlatform
+export const isMobile = ['ios', 'android'].includes(userDevice)
