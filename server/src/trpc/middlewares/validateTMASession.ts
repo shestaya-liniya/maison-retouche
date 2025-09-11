@@ -36,12 +36,12 @@ export const validateTMASession = publicMiddleware(async ({ ctx, next }) => {
 
 	handleValidateTMASession(ctx.isDevEnv, initDataRaw, ctx.env.BOT_TOKEN)
 
-	const authorizedUser = parse(initDataRaw).user!
+	const validatedUser = parse(initDataRaw).user!
 
 	return next({
 		ctx: {
 			...ctx,
-			authorizedUser,
+			validatedUser,
 		},
 	})
 })

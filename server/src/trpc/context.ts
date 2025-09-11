@@ -1,4 +1,5 @@
 import { PrismaD1 } from '@prisma/adapter-d1'
+import type { User } from '@telegram-apps/init-data-node'
 import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 
 import VendorService from '../api/vendor/service'
@@ -10,7 +11,6 @@ export interface Env {
 	DB: D1Database
 	BOT_TOKEN: string
 
-	// Auth
 	VENDORS_TELEGRAM_IDS: number[]
 }
 
@@ -19,6 +19,8 @@ export function createTRPCContext(
 ) {
 	const adapter = new PrismaD1(opts.env.DB)
 	const prisma = new PrismaClient({ adapter })
+
+	let validatedUser: User | undefined
 
 	const services = {
 		vendorService: new VendorService(prisma),
@@ -30,6 +32,7 @@ export function createTRPCContext(
 		info: opts.info,
 		env: opts.env,
 		isDevEnv: opts.env.ENVIRONMENT === 'dev',
+		validatedUser,
 		...services,
 	}
 }
