@@ -1,0 +1,1 @@
+export const SLIDING_ANIMATION_MS = 300
