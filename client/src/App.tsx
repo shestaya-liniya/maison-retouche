@@ -1,7 +1,7 @@
 import { backButton } from '@telegram-apps/sdk-solid'
 import { createEffect, createMemo } from 'solid-js'
 
-import Main from '@/components/main'
+import Main from '@/components/Main'
 import { getGlobal } from '@/global'
 import { getActions } from '@/global/actions'
 

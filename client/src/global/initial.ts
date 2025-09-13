@@ -8,7 +8,7 @@ export const INITIAL_GLOBAL_STATE: GlobalState = {
       all: []
     },
     fromLocalStorage: [],
-    ui: {
+    currentCollection: {
       month: undefined,
       all: []
     }

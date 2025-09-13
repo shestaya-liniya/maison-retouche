@@ -4,10 +4,10 @@ import { setGlobalState } from '@/global'
 
 export const paycheckActions = {
   setMonth: (month: number) => {
-    setGlobalState('paychecks', 'ui', 'month', month)
+    setGlobalState('paychecks', 'currentCollection', 'month', month)
   },
   addPaycheck: (paycheckUI: ApiPaycheckUI) => {
-    setGlobalState('paychecks', 'ui', 'all', paychecks => [
+    setGlobalState('paychecks', 'currentCollection', 'all', paychecks => [
       ...paychecks,
       paycheckUI
     ])

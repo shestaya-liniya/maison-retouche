@@ -10,7 +10,7 @@ export type GlobalState = {
       all: ApiPaycheck[]
     }
     fromLocalStorage: ApiPaycheck[]
-    ui: {
+    currentCollection: {
       month: number | undefined
       all: ApiPaycheckUI[]
     }

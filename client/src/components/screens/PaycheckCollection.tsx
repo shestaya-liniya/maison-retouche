@@ -1,10 +1,8 @@
 import { ApiPaycheckUI } from '@server/api/paycheck/type'
 import { createMemo, createSignal } from 'solid-js'
 
-import AllPaychecks from '@/components/edit/paycheckCollection/allPaychecks'
-import PaycheckForm, {
-  PaycheckFormData
-} from '@/components/edit/paycheckCollection/PaycheckForm'
+import PaycheckForm, { PaycheckFormData } from '@/components/PaycheckForm'
+import PaycheckCollectionAdded from '@/components/screens/PaycheckCollectionAdded'
 import Button from '@/components/ui/Button'
 import Screen from '@/components/ui/Screen'
 import { getGlobal } from '@/global'
@@ -18,11 +16,13 @@ type OwnProps = {
 
 const PaycheckCollection = (props: OwnProps) => {
   const global = getGlobal()
-  const paychecksUIState = createMemo(() => global.paychecks.ui.all)
+  const collectionState = createMemo(
+    () => global.paychecks.currentCollection.all
+  )
 
   const { addPaycheck } = getActions()
 
-  const [allPaychecksIsOpen, setAllPaychecksIsOpen] = createSignal(false)
+  const [addedScreenIsOpen, setAddedScreenIsOpen] = createSignal(false)
 
   let addPaycheckTriggerRef: HTMLDivElement
 
@@ -41,9 +41,9 @@ const PaycheckCollection = (props: OwnProps) => {
         <div class="flex-1">
           <Button
             variant="transparent"
-            isDisabled={paychecksUIState().length === 0}
+            isDisabled={collectionState().length === 0}
             onClick={() => {
-              setAllPaychecksIsOpen(true)
+              setAddedScreenIsOpen(true)
             }}
           >
             Все чеки
@@ -63,10 +63,10 @@ const PaycheckCollection = (props: OwnProps) => {
         triggerRef={addPaycheckTriggerRef}
         handleSubmit={handleAddPaycheck}
       />
-      <AllPaychecks
-        isOpen={allPaychecksIsOpen()}
-        onClose={() => setAllPaychecksIsOpen(false)}
-        paychecksInput={paychecksUIState()}
+      <PaycheckCollectionAdded
+        isOpen={addedScreenIsOpen()}
+        onClose={() => setAddedScreenIsOpen(false)}
+        paychecksInput={collectionState()}
       />
     </Screen>
   )
