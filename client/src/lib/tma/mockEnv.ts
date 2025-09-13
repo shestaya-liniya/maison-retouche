@@ -6,19 +6,21 @@ import { emitEvent, isTMA, mockTelegramEnv } from '@telegram-apps/sdk-solid'
 if (import.meta.env.DEV) {
   if (!(await isTMA('complete'))) {
     const themeParams = {
-      accent_text_color: '#6ab2f2',
-      bg_color: '#17212b',
-      button_color: '#5288c1',
+      bg_color: '#1e1e1e',
+      section_bg_color: '#1c1c1c',
+      secondary_bg_color: '#101010',
+      text_color: '#ffffff',
+      hint_color: '#7d7d7d',
+      link_color: '#57a7e0',
+      button_color: '#50a8eb',
       button_text_color: '#ffffff',
-      destructive_text_color: '#ec3942',
-      header_bg_color: '#17212b',
-      hint_color: '#708499',
-      link_color: '#6ab3f3',
-      secondary_bg_color: '#232e3c',
-      section_bg_color: '#17212b',
-      section_header_text_color: '#6ab3f3',
-      subtitle_text_color: '#708499',
-      text_color: '#f5f5f5',
+      header_bg_color: '#232326',
+      accent_text_color: '#64b5ef',
+      section_header_text_color: '#6cb6f8',
+      subtitle_text_color: '#7e7e7f',
+      destructive_text_color: '#ee686f',
+      section_separator_color: '#000000',
+      bottom_bar_bg_color: '#000000'
     } as const
     const noInsets = { left: 0, top: 0, bottom: 0, right: 0 } as const
 
@@ -32,7 +34,7 @@ if (import.meta.env.DEV) {
             height: window.innerHeight,
             width: window.innerWidth,
             is_expanded: true,
-            is_state_stable: true,
+            is_state_stable: true
           })
         }
         if (e[0] === 'web_app_request_content_safe_area') {
@@ -50,21 +52,21 @@ if (import.meta.env.DEV) {
             JSON.stringify({
               id: 1,
               first_name: 'Andrei',
-              username: 'shestaya_liniya',
-            }),
+              username: 'shestaya_liniya'
+            })
           ],
           ['hash', ''],
           ['signature', ''],
-          ['auth_date', Date.now().toString()],
+          ['auth_date', Date.now().toString()]
         ]).toString(),
         tgWebAppStartParam: 'debug',
         tgWebAppVersion: '8',
-        tgWebAppPlatform: 'tdesktop',
-      },
+        tgWebAppPlatform: 'tdesktop'
+      }
     })
 
     console.info(
-      '⚠️ As long as the current environment was not considered as the Telegram-based one, it was mocked. Take a note, that you should not do it in production and current behavior is only specific to the development process. Environment mocking is also applied only in development mode. So, after building the application, you will not see this behavior and related warning, leading to crashing the application outside Telegram.',
+      '⚠️ As long as the current environment was not considered as the Telegram-based one, it was mocked. Take a note, that you should not do it in production and current behavior is only specific to the development process. Environment mocking is also applied only in development mode. So, after building the application, you will not see this behavior and related warning, leading to crashing the application outside Telegram.'
     )
   }
 }
