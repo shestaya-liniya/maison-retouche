@@ -1,5 +1,6 @@
-import { Match, onMount, Switch } from 'solid-js'
+import { createSignal, Match, onMount, Switch } from 'solid-js'
 
+import NewMonthlyEntry from '@/components/edit/newMonthlyEntry'
 import Button from '@/components/ui/Button'
 import { getGlobal } from '@/global'
 import { getActions } from '@/global/actions'
@@ -7,6 +8,8 @@ import { getActions } from '@/global/actions'
 const Edit = () => {
   const global = getGlobal()
   const { loadUnfinishedPaychecks } = getActions()
+
+  const [newMonthlyEntryIsOpen, setNewMonthlyEntryIsOpen] = createSignal(true)
 
   onMount(() => {
     loadUnfinishedPaychecks()
@@ -18,10 +21,16 @@ const Edit = () => {
         <Match when={global.unfinishedPaychecks.length === 0}>
           <div class="m-auto flex flex-col items-center gap-4">
             <div class="text-hint">Нет текущих записей</div>
-            <Button>Начать новую запись</Button>
+            <Button onClick={() => setNewMonthlyEntryIsOpen(true)}>
+              Начать новую запись
+            </Button>
           </div>
         </Match>
       </Switch>
+      <NewMonthlyEntry
+        isOpen={newMonthlyEntryIsOpen()}
+        onClose={() => setNewMonthlyEntryIsOpen(false)}
+      />
     </div>
   )
 }
