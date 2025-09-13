@@ -1,3 +1,4 @@
-import type { Paycheck } from '../../db/prisma/generated/prisma'
+import type { Paycheck, Prisma } from '../../db/prisma/generated/prisma'
 
 export type ApiPaycheck = Paycheck
+export type ApiPaycheckInput = Prisma.PaycheckUncheckedCreateInput
