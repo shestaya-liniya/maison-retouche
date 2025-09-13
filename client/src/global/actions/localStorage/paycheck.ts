@@ -3,7 +3,7 @@ import { ApiPaycheck } from '@server/api/paycheck/type'
 import { setGlobalState } from '@/global'
 import { LocalStorageKeys } from '@/lib/localStorage/keys'
 
-export const localStoragePaycheckActions = {
+export const paycheckActions = {
   loadUnfinishedPaychecks: () => {
     const raw = localStorage.getItem(LocalStorageKeys.unfinishedPaychecks)
     const parsed = JSON.parse(raw) as ApiPaycheck[]
