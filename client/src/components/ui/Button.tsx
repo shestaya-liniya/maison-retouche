@@ -5,7 +5,7 @@ import Tappable from './Tappable'
 
 type OwnProps = ParentProps<{
   onClick?: () => void
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'transparent'
   isRound?: boolean
   class?: string
 }>
@@ -14,8 +14,8 @@ const Button = (props: OwnProps) => {
   props = mergeProps({ variant: 'primary' }, props)
 
   const className = twMerge(
-    'inline-flex overflow-hidden bg-button rounded-lg select-none px-4 py-2',
-    props.variant === 'secondary' && '',
+    'inline-flex overflow-hidden bg-button rounded-lg select-none px-4 py-2 font-medium',
+    props.variant === 'transparent' && 'bg-transparent text-accent',
     props.isRound && 'rounded-full',
     props.class
   )
