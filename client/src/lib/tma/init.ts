@@ -1,4 +1,5 @@
 import {
+  backButton,
   bindThemeParamsCssVars,
   bindViewportCssVars,
   emitEvent,
@@ -70,6 +71,9 @@ export async function init({
   if (mountThemeParamsSync.isAvailable()) {
     mountThemeParamsSync()
     bindThemeParamsCssVars(formatThemeParamsCssVar)
+  }
+  if (backButton.isSupported()) {
+    backButton.mount()
   }
   if (mountMainButton.isAvailable()) {
     mountMainButton()
