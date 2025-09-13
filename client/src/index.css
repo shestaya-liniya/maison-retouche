@@ -24,10 +24,10 @@ body {
   overflow: hidden;
   height: 100dvh;
   user-select: none;
+  color: var(--color-text-default);
 }
 
 #app {
   height: 100dvh;
   background-color: var(--color-background);
-  color: var(--color-text-default);
 }
