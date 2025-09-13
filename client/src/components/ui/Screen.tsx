@@ -81,7 +81,7 @@ const Screen = (props: OwnProps) => {
             <Show when={import.meta.env.DEV}>
               <Button
                 onClick={handleClose}
-                class="absolute top-0 right-0 opacity-20 z-20"
+                class="absolute bottom-0 right-0 opacity-20 z-20"
               >
                 Back
               </Button>

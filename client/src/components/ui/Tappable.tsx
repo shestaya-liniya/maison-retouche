@@ -6,6 +6,7 @@ import styles from './Tappable.module.scss'
 type OwnProps = {
   onClick?: (e: MouseEvent) => void
   onPointerDown?: () => void
+  isDisabled?: boolean
   children?: JSX.Element
   class?: string
   fullWidth?: boolean
@@ -16,7 +17,9 @@ const Tappable = (props: OwnProps) => {
   let containerRef: HTMLDivElement | undefined
 
   const handleClick = (e: MouseEvent) => {
-    props.onClick?.(e)
+    if (!props.isDisabled) {
+      props.onClick?.(e)
+    }
   }
 
   const handlePointerDown = (e: MouseEvent) => {
