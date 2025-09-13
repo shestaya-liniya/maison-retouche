@@ -8,10 +8,10 @@ export const paycheckActions = {
     const raw = localStorage.getItem(LocalStorageKeys.unfinishedPaychecks)
     const parsed = JSON.parse(raw) as ApiPaycheck[]
 
-    setGlobalState('unfinishedPaychecks', parsed ?? [])
+    setGlobalState('paychecks', 'fromLocalStorage', parsed ?? [])
   },
   saveUnfinishedPaychecks: (paychecks: ApiPaycheck[]) => {
-    setGlobalState('unfinishedPaychecks', paychecks)
+    setGlobalState('paychecks', 'fromLocalStorage', paychecks)
 
     const raw = JSON.stringify(paychecks)
     localStorage.setItem(LocalStorageKeys.unfinishedPaychecks, raw)

@@ -1,11 +1,13 @@
-import { ApiPaycheckInput } from '@server/api/paycheck/type'
-import { createStore } from 'solid-js/store'
+import { ApiPaycheckUI } from '@server/api/paycheck/type'
+import { createMemo, createSignal } from 'solid-js'
 
+import AllPaychecks from '@/components/edit/newMonthlyEntry/allPaychecks'
 import { PaycheckFormData } from '@/components/edit/newMonthlyEntry/PaycheckForm'
 import PaycheckForm from '@/components/edit/newMonthlyEntry/PaycheckForm'
 import Button from '@/components/ui/Button'
 import Screen from '@/components/ui/Screen'
 import { getGlobal } from '@/global'
+import { getActions } from '@/global/actions'
 import { NoneToVoid } from '@/lib/common/types/misc'
 
 type OwnProps = {
@@ -15,26 +17,34 @@ type OwnProps = {
 
 const NewMonthlyEntry = (props: OwnProps) => {
   const global = getGlobal()
-  const [monthlyPaychecks, setMonthlyPaychecks] = createStore<
-    ApiPaycheckInput[]
-  >([])
+  const paychecksUIState = createMemo(() => global.paychecks.ui.all)
+
+  const { addPaycheck } = getActions()
+
+  const [allPaychecksIsOpen, setAllPaychecksIsOpen] = createSignal(false)
 
   let addPaycheckTriggerRef: HTMLDivElement
 
   const handleAddPaycheck = (data: PaycheckFormData) => {
-    const paycheckBody: ApiPaycheckInput = {
+    const paycheckUI: ApiPaycheckUI = {
       ...data,
       vendorId: global.user?.id
     }
 
-    setMonthlyPaychecks([...monthlyPaychecks, paycheckBody])
+    addPaycheck(paycheckUI)
   }
 
   return (
     <Screen isOpen={props.isOpen} onClose={props.onClose} animation="slide">
       <div class="flex items-center justify-between px-2 mb-2">
         <div class="flex-1">
-          <Button variant="transparent" onClick={() => {}}>
+          <Button
+            variant="transparent"
+            isDisabled={paychecksUIState().length === 0}
+            onClick={() => {
+              setAllPaychecksIsOpen(true)
+            }}
+          >
             Все чеки
           </Button>
         </div>
@@ -51,6 +61,11 @@ const NewMonthlyEntry = (props: OwnProps) => {
       <PaycheckForm
         triggerRef={addPaycheckTriggerRef}
         handleSubmit={handleAddPaycheck}
+      />
+      <AllPaychecks
+        isOpen={allPaychecksIsOpen()}
+        onClose={() => setAllPaychecksIsOpen(false)}
+        paychecksInput={paychecksUIState()}
       />
     </Screen>
   )

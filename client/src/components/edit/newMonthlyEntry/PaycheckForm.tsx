@@ -1,9 +1,9 @@
-import { ApiPaycheckInput } from '@server/api/paycheck/type'
+import { ApiPaycheckUI } from '@server/api/paycheck/type'
 
 import Form, { FormField, FormValues } from '@/components/ui/Form'
 
 export type PaycheckFormData = Omit<
-  ApiPaycheckInput,
+  ApiPaycheckUI,
   'id' | 'vendorId' | 'createdAt' | 'updatedAt'
 >
 
