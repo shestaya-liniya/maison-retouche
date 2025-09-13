@@ -1,6 +1,6 @@
 import { createMemo, createSignal, Match, onMount, Switch } from 'solid-js'
 
-import NewMonthlyEntry from '@/components/edit/newMonthlyEntry'
+import PaycheckCollection from '@/components/edit/paycheckCollection'
 import Button from '@/components/ui/Button'
 import { getGlobal } from '@/global'
 import { getActions } from '@/global/actions'
@@ -28,7 +28,7 @@ const Edit = () => {
           </div>
         </Match>
       </Switch>
-      <NewMonthlyEntry
+      <PaycheckCollection
         isOpen={newMonthlyEntryIsOpen()}
         onClose={() => setNewMonthlyEntryIsOpen(false)}
       />

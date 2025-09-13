@@ -1,7 +1,7 @@
 import { ApiPaycheckUI } from '@server/api/paycheck/type'
 import { For } from 'solid-js'
 
-import PaycheckPreview from '@/components/edit/newMonthlyEntry/allPaychecks/PaycheckPreview'
+import PaycheckPreview from '@/components/edit/paycheckCollection/allPaychecks/PaycheckPreview'
 import Screen from '@/components/ui/Screen'
 import { NoneToVoid } from '@/lib/common/types/misc'
 

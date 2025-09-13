@@ -1,9 +1,10 @@
 import { ApiPaycheckUI } from '@server/api/paycheck/type'
 import { createMemo, createSignal } from 'solid-js'
 
-import AllPaychecks from '@/components/edit/newMonthlyEntry/allPaychecks'
-import { PaycheckFormData } from '@/components/edit/newMonthlyEntry/PaycheckForm'
-import PaycheckForm from '@/components/edit/newMonthlyEntry/PaycheckForm'
+import AllPaychecks from '@/components/edit/paycheckCollection/allPaychecks'
+import PaycheckForm, {
+  PaycheckFormData
+} from '@/components/edit/paycheckCollection/PaycheckForm'
 import Button from '@/components/ui/Button'
 import Screen from '@/components/ui/Screen'
 import { getGlobal } from '@/global'
@@ -15,7 +16,7 @@ type OwnProps = {
   onClose: NoneToVoid
 }
 
-const NewMonthlyEntry = (props: OwnProps) => {
+const PaycheckCollection = (props: OwnProps) => {
   const global = getGlobal()
   const paychecksUIState = createMemo(() => global.paychecks.ui.all)
 
@@ -71,4 +72,4 @@ const NewMonthlyEntry = (props: OwnProps) => {
   )
 }
 
-export default NewMonthlyEntry
+export default PaycheckCollection
