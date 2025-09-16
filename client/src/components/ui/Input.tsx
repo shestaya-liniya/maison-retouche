@@ -5,11 +5,12 @@ type OwnProps = {
   onInput: (value: string) => void
   placeholder: string
   attrs?: JSX.InputHTMLAttributes<HTMLInputElement>
+  currency?: string
 }
 
 const Input = (props: OwnProps) => {
   return (
-    <div class="flex bg-foreground px-4">
+    <div class="flex items-center bg-foreground px-4">
       <input
         value={props.value}
         onInput={e => props.onInput(e.currentTarget.value)}
@@ -17,6 +18,7 @@ const Input = (props: OwnProps) => {
         placeholder={props.placeholder}
         {...props.attrs}
       />
+      <span class="text-hint">{props.currency}</span>
     </div>
   )
 }

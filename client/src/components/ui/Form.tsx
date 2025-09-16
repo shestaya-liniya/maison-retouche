@@ -10,6 +10,7 @@ export type FormField = {
   name?: string
   value?: string
   inputAttrs?: JSX.InputHTMLAttributes<HTMLInputElement>
+  currency?: string
 }
 
 export type FormConfig<T extends Record<string, FormField>> = T
@@ -73,6 +74,7 @@ const Form = <T extends Record<string, FormField>>(props: OwnProps<T>) => {
               attrs={field.inputAttrs}
               value={field.value ?? ''}
               onInput={value => handleChange(field.name!, value)}
+              currency={field.currency}
             />
           )
         }}

@@ -19,7 +19,8 @@ const PaycheckForm = (props: OwnProps) => {
     },
     price: {
       placeholder: 'Сумма',
-      inputAttrs: { type: 'number' }
+      inputAttrs: { type: 'number' },
+      currency: '€'
     },
     payDate: {
       placeholder: 'День / Месяц / Год',
