@@ -1,6 +1,7 @@
 import { ApiPaycheckUI } from '@server/api/paycheck/type'
 
 import Form, { FormField, FormValues } from '@/components/ui/Form'
+import { regexp } from '@/lib/common/const/regexp'
 
 export type PaycheckFormData = Omit<
   ApiPaycheckUI,
@@ -24,11 +25,23 @@ const PaycheckForm = (props: OwnProps) => {
     },
     payDate: {
       placeholder: 'День / Месяц / Год',
-      inputAttrs: { type: 'date' }
+      inputAttrs: { type: 'date' },
+      validator: {
+        handle: value => {
+          return regexp.DD_MM_YYYY.test(value)
+        },
+        message: 'Неправильная дата'
+      }
     },
     phoneNumber: {
       placeholder: 'Номер телефона клиента',
-      inputAttrs: { type: 'tel' }
+      inputAttrs: { type: 'tel' },
+      validator: {
+        handle: value => {
+          return regexp.FRENCH_TEL.test(value)
+        },
+        message: 'Неправильный номер телефона'
+      }
     }
   }
 

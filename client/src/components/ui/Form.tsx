@@ -1,4 +1,4 @@
-import { For } from 'solid-js'
+import { For, Show } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
 import { createStore } from 'solid-js/store'
 
@@ -10,7 +10,13 @@ export type FormField = {
   name?: string
   value?: string
   inputAttrs?: JSX.InputHTMLAttributes<HTMLInputElement>
+  isOptional?: boolean
+  errorMessage?: string
   currency?: string
+  validator?: {
+    handle: (value: string) => boolean
+    message?: string
+  }
 }
 
 export type FormConfig<T extends Record<string, FormField>> = T
@@ -26,10 +32,14 @@ type OwnProps<T extends Record<string, FormField>> = {
 }
 
 const Form = <T extends Record<string, FormField>>(props: OwnProps<T>) => {
-  const fieldsArray = Object.entries(props.fields).map(([key, field]) => ({
-    ...field,
-    name: key
-  }))
+  const fieldsArray: FormField[] = Object.entries(props.fields).map(
+    ([key, field]) => ({
+      name: key,
+      value: field.value ?? '',
+      errorMessage: '',
+      ...field
+    })
+  )
 
   const [formData, setFormData] = createStore(fieldsArray)
 
@@ -41,7 +51,41 @@ const Form = <T extends Record<string, FormField>>(props: OwnProps<T>) => {
     setFormData({}, 'value', '')
   }
 
+  const setFieldError = (fieldName: string, error: string) => {
+    setFormData(f => f.name === fieldName, 'errorMessage', error)
+  }
+
+  const hasFieldError = () => {
+    setFormData(() => true, 'errorMessage', undefined)
+
+    formData.forEach(field => {
+      if (!field.name) return
+
+      if (field.validator && field.value) {
+        const isValid = field.validator?.handle(field.value)
+
+        if (!isValid) {
+          setFieldError(field.name, field.validator?.message ?? 'Ошибка')
+        }
+      }
+
+      if (!field.isOptional && field.value?.length === 0) {
+        setFormData(
+          f => f.name === field.name,
+          'errorMessage',
+          'Обязательное поле'
+        )
+      }
+    })
+
+    return formData.some(
+      field => field.errorMessage && field.errorMessage.length > 0
+    )
+  }
+
   props.submitTriggerRef.onclick = () => {
+    if (hasFieldError()) return
+
     const values = {} as FormValues<T>
 
     formData.forEach(field => {
@@ -54,28 +98,33 @@ const Form = <T extends Record<string, FormField>>(props: OwnProps<T>) => {
     handleClear()
   }
 
+  const renderInput = (field: FormField) => {
+    if (field.inputAttrs?.type === 'date') {
+      return (
+        <InputDate
+          {...field}
+          onInput={value => handleChange(field.name!, value)}
+        />
+      )
+    }
+    return (
+      <Input {...field} onInput={value => handleChange(field.name!, value)} />
+    )
+  }
+
   return (
     <div class="flex flex-col divide-y divide-background-secondary/50">
       <For each={formData}>
         {field => {
-          if (field.inputAttrs?.type === 'date') {
-            return (
-              <InputDate
-                placeholder={field.placeholder}
-                attrs={field.inputAttrs}
-                value={field.value ?? ''}
-                onInput={value => handleChange(field.name!, value)}
-              />
-            )
-          }
           return (
-            <Input
-              placeholder={field.placeholder}
-              attrs={field.inputAttrs}
-              value={field.value ?? ''}
-              onInput={value => handleChange(field.name!, value)}
-              currency={field.currency}
-            />
+            <>
+              {renderInput(field)}
+              <Show when={field.errorMessage}>
+                {errorMessage => (
+                  <div class="px-4 py-2 text-destructive">{errorMessage()}</div>
+                )}
+              </Show>
+            </>
           )
         }}
       </For>

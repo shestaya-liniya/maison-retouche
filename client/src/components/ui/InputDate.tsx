@@ -1,9 +1,9 @@
 import { JSX } from 'solid-js/jsx-runtime'
 
 type OwnProps = {
-  value: string
   onInput: (value: string) => void
   placeholder: string
+  value?: string
   attrs?: JSX.InputHTMLAttributes<HTMLInputElement>
 }
 
