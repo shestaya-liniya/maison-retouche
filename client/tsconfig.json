@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
+    "strict": true,
     "esModuleInterop": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",

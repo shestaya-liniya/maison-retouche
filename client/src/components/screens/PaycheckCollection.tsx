@@ -27,6 +27,8 @@ const PaycheckCollection = (props: OwnProps) => {
   let addPaycheckTriggerRef: HTMLDivElement
 
   const handleAddPaycheck = (data: PaycheckFormData) => {
+    if (!global.user) return
+
     const paycheckUI: ApiPaycheckUI = {
       ...data,
       vendorId: global.user?.id
@@ -54,13 +56,13 @@ const PaycheckCollection = (props: OwnProps) => {
           <span class="text-hint"> / 1000€</span>
         </div>
         <div class="flex-1 flex justify-end">
-          <div ref={addPaycheckTriggerRef}>
+          <div ref={addPaycheckTriggerRef!}>
             <Button variant="transparent">Далее</Button>
           </div>
         </div>
       </div>
       <PaycheckForm
-        triggerRef={addPaycheckTriggerRef}
+        triggerRef={addPaycheckTriggerRef!}
         handleSubmit={handleAddPaycheck}
       />
       <PaycheckCollectionAdded

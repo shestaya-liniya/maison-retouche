@@ -6,9 +6,9 @@ import { LocalStorageKeys } from '@/lib/localStorage/keys'
 export const paycheckActions = {
   loadUnfinishedPaychecks: () => {
     const raw = localStorage.getItem(LocalStorageKeys.unfinishedPaychecks)
-    const parsed = JSON.parse(raw) as ApiPaycheck[]
+    const parsed = JSON.parse(raw ?? '[]') as ApiPaycheck[]
 
-    setGlobalState('paychecks', 'fromLocalStorage', parsed ?? [])
+    setGlobalState('paychecks', 'fromLocalStorage', parsed)
   },
   saveUnfinishedPaychecks: (paychecks: ApiPaycheck[]) => {
     setGlobalState('paychecks', 'fromLocalStorage', paychecks)

@@ -12,7 +12,7 @@ type OwnProps = ParentProps<{
 }>
 
 const Button = (props: OwnProps) => {
-  props = mergeProps({ variant: 'primary' }, props)
+  props = mergeProps({ variant: 'primary' }, props) as OwnProps
 
   const className = twMerge(
     'inline-flex overflow-hidden bg-button rounded-lg select-none px-4 py-2 font-medium',

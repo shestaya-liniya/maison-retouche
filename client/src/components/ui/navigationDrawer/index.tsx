@@ -1,4 +1,4 @@
-import { Component, createSignal } from 'solid-js'
+import { Component, createSignal, Show } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
 import NavigationDrawerTabBar from '@/components/ui/navigationDrawer/TabBar'
@@ -65,9 +65,13 @@ const NavigationDrawer = (props: OwnProps) => {
         <div class={getCurrentTabClasses()}>
           <Dynamic component={tabComponents[props.currentTab]} />
         </div>
-        <div class={getPreviousTabClasses()}>
-          <Dynamic component={tabComponents[previousTab()]} />
-        </div>
+        <Show when={previousTab()}>
+          {previousTab => (
+            <div class={getPreviousTabClasses()}>
+              <Dynamic component={tabComponents[previousTab()]} />
+            </div>
+          )}
+        </Show>
       </div>
       <NavigationDrawerTabBar
         currentTab={props.currentTab}
