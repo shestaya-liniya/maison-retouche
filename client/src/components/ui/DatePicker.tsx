@@ -20,7 +20,6 @@ const DatePicker = (props: OwnProps) => {
   let inputRef: HTMLInputElement | undefined
 
   const handleClick = () => {
-    console.log(isFocused())
     if (!isFocused()) {
       inputRef?.showPicker?.()
     } else {

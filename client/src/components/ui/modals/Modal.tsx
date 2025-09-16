@@ -15,18 +15,26 @@ export type ModalProps = {
 type OwnProps = ParentProps<ModalProps>
 
 const Modal = (props: OwnProps) => {
+  let timeoutRef: NodeJS.Timeout | undefined
+
   const [isClosing, setIsClosing] = createSignal(false)
 
-  const handleClose = (shouldCallOnClose = true) => {
-    setIsClosing(true)
-
-    setTimeout(() => {
-      if (shouldCallOnClose) {
-        props.onClose?.()
-      }
+  const startClosing = () => {
+    timeoutRef = setTimeout(() => {
+      props.onClose?.()
 
       setIsClosing(false)
     }, animationDuration.default)
+  }
+
+  const resetClosing = () => {
+    clearTimeout(timeoutRef)
+    timeoutRef = undefined
+  }
+
+  const handleClose = () => {
+    setIsClosing(true)
+    startClosing()
   }
 
   createEffect(
@@ -35,6 +43,9 @@ const Modal = (props: OwnProps) => {
       isOpen => {
         if (!isOpen) {
           handleClose()
+        } else {
+          console.log('here')
+          resetClosing()
         }
       },
       { defer: true }
