@@ -23,16 +23,6 @@ const PaycheckForm = (props: OwnProps) => {
       inputAttrs: { type: 'number' },
       currency: '€'
     },
-    payDate: {
-      placeholder: 'День / Месяц / Год',
-      inputAttrs: { type: 'date' },
-      validator: {
-        handle: value => {
-          return regexp.DD_MM_YYYY.test(value)
-        },
-        message: 'Неправильная дата'
-      }
-    },
     phoneNumber: {
       placeholder: 'Номер телефона клиента',
       inputAttrs: { type: 'tel' },
@@ -42,6 +32,10 @@ const PaycheckForm = (props: OwnProps) => {
         },
         message: 'Неправильный номер телефона'
       }
+    },
+    payDate: {
+      placeholder: 'День / Месяц / Год',
+      inputAttrs: { type: 'date' }
     }
   }
 

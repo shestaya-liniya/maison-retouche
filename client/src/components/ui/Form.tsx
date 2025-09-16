@@ -2,8 +2,8 @@ import { For, Show } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
 import { createStore } from 'solid-js/store'
 
+import DatePicker from '@/components/ui/DatePicker'
 import Input from '@/components/ui/Input'
-import InputDate from '@/components/ui/InputDate'
 
 export type FormField = {
   placeholder: string
@@ -98,15 +98,22 @@ const Form = <T extends Record<string, FormField>>(props: OwnProps<T>) => {
     handleClear()
   }
 
+  const isDateLike = (type: unknown): type is 'date' | 'month' =>
+    type === 'date' || type === 'month'
+
   const renderInput = (field: FormField) => {
-    if (field.inputAttrs?.type === 'date') {
+    const { type } = field.inputAttrs ?? {}
+
+    if (isDateLike(type)) {
       return (
-        <InputDate
-          {...field}
+        <DatePicker
+          type={type}
+          value={field.value as string}
           onInput={value => handleChange(field.name!, value)}
         />
       )
     }
+
     return (
       <Input {...field} onInput={value => handleChange(field.name!, value)} />
     )
