@@ -13,6 +13,7 @@ export type GlobalState = {
     currentCollection: {
       month: number | undefined
       year: number | undefined
+      maxIncome: number
       all: ApiPaycheckUI[]
     }
   }

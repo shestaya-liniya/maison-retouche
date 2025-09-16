@@ -16,15 +16,17 @@ type OwnProps = {
 
 const PaycheckCollection = (props: OwnProps) => {
   const global = getGlobal()
-  const collectionState = createMemo(
-    () => global.paychecks.currentCollection.all
-  )
+  const collectionState = createMemo(() => global.paychecks.currentCollection)
 
   const { addPaycheck } = getActions()
 
   const [addedScreenIsOpen, setAddedScreenIsOpen] = createSignal(false)
 
   let addPaycheckTriggerRef: HTMLDivElement
+
+  const totalPrice = createMemo(() => {
+    return collectionState().all.reduce((sum, item) => sum + item.price, 0)
+  })
 
   const handleAddPaycheck = (data: PaycheckFormData) => {
     if (!global.user) return
@@ -43,7 +45,7 @@ const PaycheckCollection = (props: OwnProps) => {
         <div class="flex-1">
           <Button
             variant="transparent"
-            isDisabled={collectionState().length === 0}
+            isDisabled={collectionState().all.length === 0}
             onClick={() => {
               setAddedScreenIsOpen(true)
             }}
@@ -52,8 +54,8 @@ const PaycheckCollection = (props: OwnProps) => {
           </Button>
         </div>
         <div>
-          <span class="text-accent">700€</span>
-          <span class="text-hint"> / 1000€</span>
+          <span class="text-accent">{totalPrice()}€</span>
+          <span class="text-hint"> / {collectionState().maxIncome}€</span>
         </div>
         <div class="flex-1 flex justify-end">
           <div ref={addPaycheckTriggerRef!}>
@@ -68,7 +70,7 @@ const PaycheckCollection = (props: OwnProps) => {
       <PaycheckCollectionAdded
         isOpen={addedScreenIsOpen()}
         onClose={() => setAddedScreenIsOpen(false)}
-        paychecksInput={collectionState()}
+        paychecksInput={collectionState().all}
       />
     </Screen>
   )

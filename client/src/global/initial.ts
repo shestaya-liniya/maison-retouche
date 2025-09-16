@@ -11,6 +11,7 @@ export const INITIAL_GLOBAL_STATE: GlobalState = {
     currentCollection: {
       month: undefined,
       year: undefined,
+      maxIncome: 1000,
       all: []
     }
   },
