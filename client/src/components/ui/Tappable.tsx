@@ -66,6 +66,9 @@ const Tappable = (props: OwnProps) => {
       onPointerDown={handlePointerDown}
       ref={containerRef}
       class={containerClass}
+      classList={{
+        'opacity-50': props.isDisabled
+      }}
     >
       {props.children}
     </div>

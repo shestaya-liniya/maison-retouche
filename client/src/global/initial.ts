@@ -10,6 +10,7 @@ export const INITIAL_GLOBAL_STATE: GlobalState = {
     fromLocalStorage: [],
     currentCollection: {
       month: undefined,
+      year: undefined,
       all: []
     }
   },

@@ -22,11 +22,7 @@ const Button = (props: OwnProps) => {
   )
 
   return (
-    <div
-      classList={{
-        'opacity-50': props.isDisabled
-      }}
-    >
+    <div>
       <Tappable
         onClick={props.onClick}
         class={className}
