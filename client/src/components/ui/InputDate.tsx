@@ -42,6 +42,9 @@ const InputDate = (props: OwnProps) => {
         }}
         class="py-4 outline-none border-transparent flex-1"
         placeholder={props.placeholder}
+        {...props.attrs}
+        type="text"
+        inputMode="numeric"
       />
     </div>
   )
