@@ -15,18 +15,17 @@ const DatePicker = (props: OwnProps) => {
   const [value, setValue] = createSignal<string | undefined>(undefined)
   const [inputValue, setInputValue] = createSignal(props.value)
 
-  const [isPickerOpen, setIsPickerOpen] = createSignal(false)
+  const [isFocused, setIsFocused] = createSignal(false)
 
   let inputRef: HTMLInputElement | undefined
 
   const handleClick = () => {
-    if (!isPickerOpen()) {
+    console.log(isFocused())
+    if (!isFocused()) {
       inputRef?.showPicker?.()
     } else {
       inputRef?.blur?.()
     }
-
-    setIsPickerOpen(!isPickerOpen())
   }
 
   const formatDate = (isoValue: string) => {
@@ -66,13 +65,14 @@ const DatePicker = (props: OwnProps) => {
         type={props.type}
         value={inputValue()}
         onInput={handleChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         class="w-full h-full"
         style={{
           position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-25%)',
-          'z-index': '-1',
-          opacity: 0
+          opacity: 0,
+          width: '0',
+          height: '0'
         }}
       />
       <Tappable onClick={handleClick} class={buttonClassName}>
