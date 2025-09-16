@@ -11,7 +11,6 @@ const Input = (props: OwnProps) => {
   return (
     <div class="flex bg-foreground px-4">
       <input
-        type=""
         value={props.value}
         onInput={e => props.onInput(e.currentTarget.value)}
         class="py-4 outline-none border-transparent flex-1"

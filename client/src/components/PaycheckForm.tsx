@@ -22,7 +22,7 @@ const PaycheckForm = (props: OwnProps) => {
       inputAttrs: { type: 'number' }
     },
     payDate: {
-      placeholder: 'Дата',
+      placeholder: 'День / Месяц / Год',
       inputAttrs: { type: 'date' }
     },
     phoneNumber: {

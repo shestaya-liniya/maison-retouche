@@ -3,6 +3,7 @@ import { JSX } from 'solid-js/jsx-runtime'
 import { createStore } from 'solid-js/store'
 
 import Input from '@/components/ui/Input'
+import InputDate from '@/components/ui/InputDate'
 
 export type FormField = {
   placeholder: string
@@ -53,9 +54,19 @@ const Form = <T extends Record<string, FormField>>(props: OwnProps<T>) => {
   }
 
   return (
-    <div class="flex flex-col space-y-2">
+    <div class="flex flex-col divide-y divide-background-secondary/50">
       <For each={formData}>
         {field => {
+          if (field.inputAttrs?.type === 'date') {
+            return (
+              <InputDate
+                placeholder={field.placeholder}
+                attrs={field.inputAttrs}
+                value={field.value ?? ''}
+                onInput={value => handleChange(field.name!, value)}
+              />
+            )
+          }
           return (
             <Input
               placeholder={field.placeholder}
