@@ -7,7 +7,7 @@ import { PrismaClient } from '../db/prisma/generated/prisma'
 
 export interface Env {
 	ENVIRONMENT: 'prod' | 'dev'
-	ALLOWED_ORIGINS: string
+	ALLOWED_ORIGINS: string[]
 	DB: D1Database
 	BOT_TOKEN: string
 

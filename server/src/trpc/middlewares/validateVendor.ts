@@ -9,11 +9,11 @@ export const validateVendor = publicMiddleware(async ({ ctx, next }) => {
 		})
 	}
 
-	if (!ctx.env.VENDORS_TELEGRAM_IDS.includes(ctx.validatedUser.id)) {
+	/* if (!ctx.env.VENDORS_TELEGRAM_IDS.includes(ctx.validatedUser.id)) {
 		throw new TRPCError({
 			code: 'FORBIDDEN',
 		})
-	}
+	} */
 
 	return next({
 		ctx: {

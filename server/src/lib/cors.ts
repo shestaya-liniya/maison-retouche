@@ -1,13 +1,23 @@
 import type { Env } from '../trpc/context'
-import { MIDDLEWARE_HEADERS } from '../trpc/middlewares/headers'
+
+const CORS_CONFIG = {
+	ALLOWED_HEADERS: '*',
+	ALLOWED_METHODS: '*',
+} as const
 
 function isOriginAllowed(
 	origin: string | null,
-	allowedOriginsStringArray: string,
-): boolean {
-	if (!origin) return false
+	allowedOrigins: string[],
+): origin is string {
+	return origin !== null && allowedOrigins.includes(origin)
+}
 
-	return JSON.parse(allowedOriginsStringArray).includes(origin)
+function createCORSHeaders(origin: string): Record<string, string> {
+	return {
+		'Access-Control-Allow-Origin': origin,
+		'Access-Control-Allow-Headers': CORS_CONFIG.ALLOWED_HEADERS,
+		'Access-Control-Allow-Methods': CORS_CONFIG.ALLOWED_METHODS,
+	}
 }
 
 export function addCORSHeaders(
@@ -16,21 +26,17 @@ export function addCORSHeaders(
 	env: Env,
 ): Response {
 	const origin = request.headers.get('Origin')
-	const newResponse = new Response(response.body, response)
 
-	if (isOriginAllowed(origin, env.ALLOWED_ORIGINS)) {
-		newResponse.headers.set('Access-Control-Allow-Origin', origin!)
-		newResponse.headers.set(
-			'Access-Control-Allow-Headers',
-			'Content-Type, Authorization',
-		)
-		newResponse.headers.set('Access-Control-Allow-Credentials', 'true')
-		newResponse.headers.set(
-			'Access-Control-Allow-Methods',
-			'GET, POST, OPTIONS',
-		)
-		newResponse.headers.set('Access-Control-Max-Age', '86400')
+	if (!isOriginAllowed(origin, env.ALLOWED_ORIGINS)) {
+		return response
 	}
+
+	const newResponse = new Response(response.body, response)
+	const corsHeaders = createCORSHeaders(origin)
+
+	Object.entries(corsHeaders).forEach(([key, value]) => {
+		newResponse.headers.set(key, value)
+	})
 
 	return newResponse
 }
@@ -47,12 +53,6 @@ export function handleCORSPreflight(request: Request, env: Env): Response {
 
 	return new Response(null, {
 		status: 200,
-		headers: {
-			'Access-Control-Allow-Origin': origin!,
-			'Access-Control-Allow-Headers': `Content-Type, Authorization, ${MIDDLEWARE_HEADERS.TMA_SESSION}`,
-			'Access-Control-Allow-Credentials': 'true',
-			'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-			'Access-Control-Max-Age': '86400',
-		},
+		headers: createCORSHeaders(origin),
 	})
 }
