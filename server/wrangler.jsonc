@@ -10,7 +10,10 @@
 	"env": {
 		"prod": {
 			"vars": {
-				"ENVIRONMENT": "prod"
+				"ENVIRONMENT": "prod",
+				"ALLOWED_ORIGINS": [
+					"https://maison-retouche-client.andrei-silin6.workers.dev"
+				]
 			},
 			"d1_databases": [
 				{

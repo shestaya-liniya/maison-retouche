@@ -3,11 +3,11 @@ import { MIDDLEWARE_HEADERS } from '../trpc/middlewares/headers'
 
 function isOriginAllowed(
 	origin: string | null,
-	allowedOrigin: string,
+	allowedOriginsStringArray: string,
 ): boolean {
 	if (!origin) return false
-	const allowedOrigins = allowedOrigin.split(',').map(o => o.trim())
-	return allowedOrigins.includes(origin)
+
+	return JSON.parse(allowedOriginsStringArray).includes(origin)
 }
 
 export function addCORSHeaders(
@@ -18,7 +18,7 @@ export function addCORSHeaders(
 	const origin = request.headers.get('Origin')
 	const newResponse = new Response(response.body, response)
 
-	if (isOriginAllowed(origin, env.CLIENT_ORIGIN)) {
+	if (isOriginAllowed(origin, env.ALLOWED_ORIGINS)) {
 		newResponse.headers.set('Access-Control-Allow-Origin', origin!)
 		newResponse.headers.set(
 			'Access-Control-Allow-Headers',
@@ -38,7 +38,7 @@ export function addCORSHeaders(
 export function handleCORSPreflight(request: Request, env: Env): Response {
 	const origin = request.headers.get('Origin')
 
-	if (!isOriginAllowed(origin, env.CLIENT_ORIGIN)) {
+	if (!isOriginAllowed(origin, env.ALLOWED_ORIGINS)) {
 		return new Response('CORS policy violation', {
 			status: 403,
 			statusText: 'Forbidden',
