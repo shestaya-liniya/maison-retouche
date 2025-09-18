@@ -11,17 +11,20 @@ export type PaycheckFormData = Omit<
 type OwnProps = {
   triggerRef: HTMLDivElement
   handleSubmit: (data: PaycheckFormData) => void
+  values?: PaycheckFormData
 }
 
 const PaycheckForm = (props: OwnProps) => {
   const fields: Record<keyof PaycheckFormData, FormField> = {
     serviceName: {
-      placeholder: 'Название услуги'
+      placeholder: 'Название услуги',
+      value: props.values?.serviceName
     },
     price: {
       placeholder: 'Сумма',
       inputAttrs: { type: 'number' },
-      currency: '€'
+      currency: '€',
+      value: props.values?.price.toString()
     },
     phoneNumber: {
       placeholder: 'Номер телефона клиента',
@@ -31,11 +34,13 @@ const PaycheckForm = (props: OwnProps) => {
           return regexp.FRENCH_TEL.test(value)
         },
         message: 'Неправильный номер телефона'
-      }
+      },
+      value: props.values?.phoneNumber
     },
     payDate: {
       placeholder: 'День / Месяц / Год',
-      inputAttrs: { type: 'date' }
+      inputAttrs: { type: 'date' },
+      value: props.values?.payDate.toString()
     }
   }
 

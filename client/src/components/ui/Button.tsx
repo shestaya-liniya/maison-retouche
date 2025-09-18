@@ -15,7 +15,7 @@ const Button = (props: OwnProps) => {
   props = mergeProps({ variant: 'primary' }, props) as OwnProps
 
   const className = twMerge(
-    'inline-flex overflow-hidden bg-button rounded-lg select-none px-4 py-2 font-medium',
+    'inline-flex justify-center overflow-hidden bg-button rounded-lg select-none px-4 py-2 font-medium',
     props.variant === 'transparent' && 'bg-transparent text-accent',
     props.isRound && 'rounded-full',
     props.class

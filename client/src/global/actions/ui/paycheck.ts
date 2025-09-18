@@ -14,5 +14,15 @@ export const paycheckActions = {
       ...paychecks,
       paycheckUI
     ])
+  },
+  setCollectionPaycheckInEdit: (
+    paycheckFormData: ApiPaycheckUI | undefined
+  ) => {
+    setGlobalState(
+      'paychecks',
+      'currentCollection',
+      'paycheckInEditing',
+      paycheckFormData
+    )
   }
 }

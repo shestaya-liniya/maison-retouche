@@ -7,6 +7,7 @@ import {
   Show
 } from 'solid-js'
 import { Portal } from 'solid-js/web'
+import { twMerge } from 'tailwind-merge'
 
 import { getActions } from '@/global/actions'
 import { SLIDING_ANIMATION_MS } from '@/lib/common/const/animation'
@@ -21,6 +22,7 @@ type OwnProps = ParentProps<{
   onOpen?: () => void
   onBeforeClose?: () => void
   showBackButton?: boolean
+  class?: string
 }>
 
 const Screen = (props: OwnProps) => {
@@ -59,6 +61,8 @@ const Screen = (props: OwnProps) => {
     )
   )
 
+  const contentClassName = twMerge(styles.content, props.class)
+
   return (
     <Show when={props.isOpen || isClosing()}>
       <Portal mount={document.querySelector('#screens-root') || undefined}>
@@ -71,7 +75,7 @@ const Screen = (props: OwnProps) => {
           onClick={props.onClose}
         >
           <div
-            class={styles.content}
+            class={contentClassName}
             classList={{
               [styles.slide]: props.animation === 'slide',
               [styles.fade]: props.animation === 'fade'

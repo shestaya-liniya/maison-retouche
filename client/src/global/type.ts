@@ -15,8 +15,10 @@ export type GlobalState = {
       year: number | undefined
       maxIncome: number
       all: ApiPaycheckUI[]
+      paycheckInEditing: ApiPaycheckUI | undefined
     }
   }
 
+  paycheckCollectionEditIsOpen: boolean
   backButtonActions: (() => void)[]
 }
